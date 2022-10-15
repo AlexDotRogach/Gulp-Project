@@ -14,23 +14,23 @@ style-min.css - нужно при запущенном gulp прописать n
 Все шрифты формата ttf переводятся в woff || woff2.
 <h2 align="center">Структура проекта:</h2>
 📁css – дополнительные файлы стилей<br>
-📁fonts – шрифты <br>
+📁fonts – шрифты<br>
 📁img – картинки<br>
 📁js - javaScript<br>
 📁sass – основые стили<br>
 📁svg – svg картинки<br>
 index.html
 <h3>Продакшен:</h3>
-📁css – содержит папку  svg где хранятся svg картинки + файл sprite.css где создаются классы на svg<br>
+📁css – содержит папку svg где хранятся svg картинки + файл sprite.css где создаются селекторы на svg<br>
 📁fonts – шрифты только формата woff || woff2 <br>
-📁img – картинки только формата webp<br>
+📁img – картинки только формата webp + базовая картинка в сжатом виде<br>
 index.html – сжатый файл html<br>
 min.js - сжатый файл javaScript<br>
 style-min.css - сжатый файл стилей<br>
 <h2 align="center">Команды:</h2>
-	npm run gulp: 
+	npm run gulp:<br>
   ◽запуск gulp.<br>
-	◽fontStyle - создание стилей со шрифтами.<br>
+  ◽fontStyle - создание стилей со шрифтами. берет все шрифты в папке dist/fonts и на основе их создает стили<br>
   ◽otf2ttf – перевод шрифтов в otf в ttf. Кладутся в папку src/fonts. <br>
   
  В будущем буду дополнять эту сборку.<br>
