@@ -16,6 +16,7 @@ import cheerio from "gulp-cheerio";
 import replace from "gulp-replace";
 import webp from "gulp-webp";
 import webpHtml from "gulp-webp-html";
+import fileInclude from "gulp-file-include";
 import ttf2woff from "gulp-ttf2woff";
 import ttf2woff2 from "gulp-ttf2woff2";
 import fonter from "gulp-fonter";
@@ -35,7 +36,7 @@ gulp.task("server", function () {
 gulp.task("watch", function () {
   gulp.watch("src/sass/**/*.+(scss|sass|css)", gulp.parallel("styles"));
   gulp.watch("src/js/*.js", gulp.parallel("compress"));
-  gulp.watch("src/*.html").on("change", gulp.parallel("html"));
+  gulp.watch("src/**/*.html").on("change", gulp.parallel("html"));
   gulp.watch("src/img/*").on("all", gulp.parallel("images"));
   gulp.watch("src/svg/*").on("all", gulp.parallel("svg"));
   gulp.watch("src/fonts/**/*").on("all", gulp.parallel("fonts"));
@@ -43,7 +44,13 @@ gulp.task("watch", function () {
 
 gulp.task("html", function () {
   return gulp
-    .src("src/*.html")
+    .src("src/index.html")
+    .pipe(
+      fileInclude({
+        prefix: "@@",
+        basepath: "./src/partHtml",
+      })
+    )
     .pipe(webpHtml())
     .pipe(htmlmin({ collapseWhitespace: true }))
     .pipe(gulp.dest("dist"))
@@ -61,7 +68,7 @@ gulp.task("styles", function () {
     .pipe(gulp.dest("dist"))
     .pipe(browserSync.stream());
 });
-
+// JS
 gulp.task("compress", function () {
   return gulp
     .src("src/js/index.js")
