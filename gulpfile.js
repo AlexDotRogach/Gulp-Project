@@ -9,6 +9,7 @@ import imagemin from "gulp-imagemin";
 import uglify from "gulp-uglify";
 import babel from "gulp-babel";
 import svgSprite from "gulp-svg-sprite";
+import svgmin from "gulp-svgmin";
 import webpack from "webpack-stream";
 import browserSync from "browser-sync";
 import dartSass from "sass";
@@ -93,6 +94,13 @@ gulp.task("compress", function () {
 gulp.task("svg", function () {
   gulp
     .src("**/*.svg", { cwd: "src/svg" })
+    .pipe(
+      svgmin({
+        js2svg: {
+          pretty: true,
+        },
+      })
+    )
     .pipe(
       cheerio({
         run: function ($, file) {
