@@ -115,10 +115,8 @@ gulp.task("svg", function () {
     .pipe(
       svgSprite({
         mode: {
-          css: {
-            render: {
-              css: true,
-            },
+          symbol: {
+            inline: true,
           },
         },
       })
