@@ -8,7 +8,7 @@ import concat from "gulp-concat";
 import imagemin from "gulp-imagemin";
 import uglify from "gulp-uglify";
 import babel from "gulp-babel";
-import svgSprite from "gulp-svg-sprite";
+import gulpSvgSprite from "gulp-svg-sprite";
 import svgmin from "gulp-svgmin";
 import webpack from "webpack-stream";
 import browserSync from "browser-sync";
@@ -39,7 +39,10 @@ gulp.task("watch", function () {
   gulp.watch("src/js/*.js", gulp.parallel("compress"));
   gulp.watch("src/**/*.html").on("change", gulp.parallel("html"));
   gulp.watch("src/img/*").on("all", gulp.parallel("images"));
-  gulp.watch("src/svg/*").on("all", gulp.parallel("svg"));
+  gulp.watch("src/svg/svgSprite/*").on("all", gulp.parallel("svgSprite"));
+  gulp
+    .watch("src/svg/svgSpriteHard/*")
+    .on("all", gulp.parallel("svgSpriteHard"));
   gulp.watch("src/fonts/**/*").on("all", gulp.parallel("fonts"));
 });
 
@@ -91,9 +94,9 @@ gulp.task("compress", function () {
     .pipe(browserSync.stream());
 });
 
-gulp.task("svg", function () {
-  gulp
-    .src("**/*.svg", { cwd: "src/svg" })
+gulp.task("svgSprite", function () {
+  return gulp
+    .src("src/svg/svgSprite/*.svg")
     .pipe(
       svgmin({
         js2svg: {
@@ -113,15 +116,20 @@ gulp.task("svg", function () {
     )
     .pipe(replace("&gt;", ">"))
     .pipe(
-      svgSprite({
+      gulpSvgSprite({
         mode: {
           symbol: {
+            sprite: "../sprites/sprite-simple.svg",
             inline: true,
           },
         },
       })
     )
     .pipe(gulp.dest("dist"));
+});
+
+gulp.task("svgSpriteHard", function () {
+  return gulp.src("src/svg/svgClear/*.svg").pipe(gulp.dest("dist/sprites/svg"));
 });
 
 // fonts
@@ -231,7 +239,8 @@ gulp.task(
     "styles",
     "compress",
     "images",
-    "svg",
+    "svgSprite",
+    "svgSpriteHard",
     "html"
   )
 );
