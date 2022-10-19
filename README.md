@@ -19,11 +19,11 @@ style-min.css - нужно при запущенном gulp прописать n
 📁img – картинки<br>
 📁js - javaScript<br>
 📁sass – основые стили<br>
-📁svg – svg картинки<br>
+📁svg – svgClear: svg картинки, svgSprite - svg картинки что будут sprite<br>
 📁partHtml - части html<br>
 index.html
 <h3>Продакшен:</h3>
-📁symbol – содержит папку svg где хранятся svg в формате symbol<br>
+📁sprites – содержит папку svg где хранятся svg + sprite.svg<br>
 📁fonts – шрифты только формата woff || woff2 <br>
 📁img – картинки только формата webp + базовая картинка в сжатом виде<br>
 index.html – сжатый файл html<br>
